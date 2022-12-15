@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <title>Document</title>
+</head>
+<body>
+  <header>
+
+  </header>
+  <main>
+    <section>
+      <h1>DASHBOARD</h1>
+      <div class="flex">
+        <form action="/dashboard/income" method="POST">
+          <h2>Add Income</h2>
+          <select class="select-option" name="source" id="source">
+            <option value="">Select Income</option>
+            <option value="salary">salary</option>
+            <option value="trading">trading</option>
+            <option value="bussiness">bussiness</option>
+          </select>
+          <input type="number" name="amount" id="amount" placeholder="Enter the Amount">
+          <input type="date" name="date">
+          <input type="submit" value="Add Income">
+        </form>
+        <form action="/dashboard/expense" method="POST">
+          <h2>Add Expense</h2>
+          <select name="category" id="category">
+            <option value="">Select Expense</option>
+            <option value="health"> health</option>
+            <option value="grocery"> grocery</option>
+            <option value="lifestyle"> lifestyle</option>
+          </select> 
+          <input type="number" name="amount" placeholder="Enter the Amount">
+          <input type="date" name="date">
+          <input type="submit" value="Add Expense">
+        </form>
+      </div><hr><hr>
+    </section>
+
+    <section class="flex">
+      <div>
+        <h2>Income:</h2>
+        <h3>Amount:<%= totalIncome %></h3><br><hr>
+        <% income.forEach((inc)=>{ %>
+          <div class="green-box">
+            <p>Source:<%= inc.source %></p>
+            <p>Amount:<%= inc.amount %></p>
+            <p>Date:<%= inc.date %></p>
+          </div>
+        
+       <% }) %>
+      </div>
+      <br>
+      <div>
+        <h2>Expense:</h2>
+        <h3>Amount:<%= totalExpense %></h3><br><hr>
+        <% expense.forEach((exp)=>{ %>
+          <div class="red-box">
+            <p>Category:<%= exp.category %></p>
+            <p>Amount:<%= exp.amount %></p>
+            <p>Date:<%= exp.date %></p>
+          </div>
+         
+        <% }) %>
+      </div><br>
+    </section>
+
+    <section class="filter-box">
+      <div>
+        <form action="/dashboard/date" method="GET">
+          <h2>Filter By Date</h2>
+           <input type="date" name="start" id="start">
+           <input type="date" name="end" id="end">
+           <input type="submit" value="Filter By Date">
+        </form>
+      </div><br>
+      <div>
+        <form action="/dashboard/date" method="GET">
+          <h2>Filter By Income</h2>
+          <select class="select-option" name="source" id="source">
+            <option value="">Select Income</option>
+            <option value="salary">salary</option>
+            <option value="trading">trading</option>
+            <option value="bussiness">bussiness</option>
+          </select>
+          <input type="submit" value="Filter By income">
+        </form>
+      </div><br>
+      <div>
+        <form action="/dashboard/date" method="GET">
+        <h2>Filter By Expense</h2>
+          <select name="category" id="category">
+            <option value="">Select Expense</option>
+            <option value="health"> health</option>
+            <option value="grocery"> grocery</option>
+            <option value="lifestyle"> lifestyle</option>
+          </select> 
+          <input type="submit" value="Filter By Expense">
+        </form>
+      </div><br>
+      <div>
+        <form action="/dashboard/date" method="GET">
+           <h2>Filter By Month</h2>
+           <input type="month" name="month" id="month">
+           <input type="submit" value="Filter By Month">
+        </form>
+      </div>
+    
+    </section>
+
+  </main>
+</body>
+</html>

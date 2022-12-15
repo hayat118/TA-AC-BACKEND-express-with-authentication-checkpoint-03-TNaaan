@@ -1,0 +1,24 @@
+
+
+    <% include partials/header %>
+    <main>
+      <div>
+       <h1><%= title %></h1>
+       <p>Welcome to <%= title %></p>
+       <h2><%= user?.name %></h2>
+       <h3><%= user?.email %></h3>
+       <nav>
+          <a href="/auth/github">
+            Log In With Github
+          </a>
+          <a href="/auth/google">
+            Log In With Google
+          </a>
+       </nav>
+      
+      </div>
+    </main>
+
+    <% include partials/footer %>
+
+
