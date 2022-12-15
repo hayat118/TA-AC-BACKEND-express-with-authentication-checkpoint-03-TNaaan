@@ -74,18 +74,21 @@ router.get('/date',(req,res,next)=>{
     })
   }else if(month){
     let year=req.query.month.split('-')[0]
-    let month=req.query.month.split('-')[0];
-    let date=year + '-' + month + '-' + '01';
+    let month=req.query.month.split('-')[1];
+    let date=year + '/' + month + '/' + '01';
 
-    let firstDay=new Date(
-        new Date(date).getFullYear(),
-        new Date(date).getMonth() + 1
+    let firstDay= new Date(year, month - 1, 1)
+
+    let lastday= new Date(
+        year,
+        month - 1,
+        30
     )
-    //  console.log(month, "date");
-    Income.find({date : {$gte:start, $lte:end},userId:req.user.id},(err,income)=>{
+     console.log(firstDay.toString(),lastday.toString(), date, "date");
+    Income.find({date : {$gte:firstDay, $lte:lastday},userId:req.user.id},(err,income)=>{
       var totalIncome=getTotal(income);
 
-    Expense.find({date:{$gte:start, $lte:end}, userId:req.user.id},(err,expense)=>{
+    Expense.find({date:{$gte:firstDay, $lte:lastday}, userId:req.user.id},(err,expense)=>{
       var totalExpense=getTotal(expense)
 
       res.render('dashboard', {income:income, expense:expense, totalIncome, totalExpense});
@@ -100,7 +103,7 @@ router.get('/date',(req,res,next)=>{
 
 
 
-function getTotal(arr){
+function getTotal(arr = []){
   return arr.reduce((acc,cv)=>{
     acc=acc+cv.amount;
     return acc;
